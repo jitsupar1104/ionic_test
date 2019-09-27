@@ -13,6 +13,13 @@
       <ion-label position="floating" color="primary">Quotation No.</ion-label>
       <ion-input type="text" formControlName="quotationNo"></ion-input>
     </ion-item>
+    <div class="validation-errors" *ngIf="(quotationForm.controls['quotationNo'].touched || 
+                                          quotationForm.controls['quotationNo'].dirty) && 
+                                          !quotationForm.controls['quotationNo'].valid">
+      <div class="error-message" *ngIf="quotationForm.controls['quotationNo'].errors?.required">
+        Please enter Quotation No.
+      </div>
+    </div>
     <ion-item>
       <ion-label position="floating" color="primary">Customer</ion-label>
       <ion-select formControlName="customer">
@@ -23,12 +30,26 @@
         <ion-select-option value="4">Customer-4</ion-select-option>
         <ion-select-option value="5">Customer-5</ion-select-option>
       </ion-select>
+      <div class="validation-errors" *ngIf="(quotationForm.controls['customer'].touched || 
+      quotationForm.controls['customer'].dirty) && 
+      !quotationForm.controls['customer'].error">
+        <div class="error-message" *ngIf="quotationForm.controls['customer'].errors?.required">
+          Please select customer
+        </div>
+      </div>
     </ion-item>
     <ion-item>
       <ion-label position="floating" color="primary">Quotation Date</ion-label>
       <ion-datetime formControlName="quotationDate" displayFormat="DD/MM/YYYY" min="1994-03-14" max="2012-12-09">
       </ion-datetime>
     </ion-item>
+    <div class="validation-errors" *ngIf="(quotationForm.controls['quotationDate'].touched || 
+                                          quotationForm.controls['quotationDate'].dirty) && 
+                                          !quotationForm.controls['quotationDate'].valid">
+      <div class="error-message" *ngIf="quotationForm.controls['quotationDate'].errors?.required">
+        Please enter Quotation Date.
+      </div>
+    </div>
     <ion-item>
       <ion-label position="floating" color="primary">Expire Date</ion-label>
       <ion-datetime formControlName="expireDate" displayFormat="DD/MM/YYYY"></ion-datetime>
@@ -91,7 +112,8 @@
         </ion-item>
         <ion-button expand="block" color="danger" (click)="removeItem(i)">
           <ion-icon name="trash"></ion-icon>
-          Delete</ion-button>
+          Delete
+        </ion-button>
       </div>
     </div>
     <ion-button color="success" type="button" (click)="addItem()">
@@ -110,8 +132,11 @@
       <ion-input type="number" text-right readonly formControlName="vat"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating" color="primary">Grand Total</ion-label>
+      <ion-label position="floating" color="primary">lGrand Tota</ion-label>
       <ion-input type="number" text-right readonly formControlName="grandTotal"></ion-input>
     </ion-item>
+    <ion-button color="primary" expand="block" type="submit">
+      <ion-icon slot="start" name="add-circle"></ion-icon>Svea Quotation
+    </ion-button>
   </form>
 </ion-content>

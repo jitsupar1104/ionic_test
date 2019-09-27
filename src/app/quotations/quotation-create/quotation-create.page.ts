@@ -1,5 +1,8 @@
+import { QuotationsService } from './../../services/quotations.service';
+import { Quotation } from 'src/app/models/quotation';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, FormArray, AbstractControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quotation-create',
@@ -9,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class QuotationCreatePage implements OnInit {
 
   quotationForm: FormGroup;
+  quotation : Quotation;
   products: [{productId: 1, productName: 'prod-1'}, {productId: 2, productName: 'prod-2'}];
 
   // Property
@@ -16,7 +20,11 @@ export class QuotationCreatePage implements OnInit {
     return this.quotationForm.get('quotationItems') as FormArray;
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private quotationsService:QuotationsService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
     this.createForm();
@@ -65,6 +73,20 @@ export class QuotationCreatePage implements OnInit {
   }
 
   submit() {
+    this.quotation = Object.assign({},this.quotationForm.value);
+    console.log('this.quotation',this.quotation);
+    if(this.quotationForm.valid){
+          this.quotationsService.addQuotaion(this.quotation).subscribe(
+      res=>{
+        console.log('test',res);
+      })
+    this.router.navigateByUrl('app/quotations/list');  
+      
+    }else{
+      console.log('test');
+      
+    }
 
+      
   }
 }
